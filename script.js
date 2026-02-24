@@ -36,26 +36,27 @@ function Togglestyle(id){
 }
 
 maincontainer.addEventListener('click', function (event) {
-    const parentNode = event.target.parentNode.parentNode;
-    const companyname =parentNode.querySelector(".company-name").innerText;
-    const positionname =parentNode.querySelector(".position-name").innerText;
-    const salary =parentNode.querySelector(".salary").innerText;
-    const status =parentNode.querySelector(".status").innerText;
-    const discription=parentNode.querySelector(".discription").innerText;
+    if (event.target.classList.contains("interview-btn")) {
+        const parentNode = event.target.parentNode.parentNode;
+        const companyname =parentNode.querySelector(".company-name").innerText;
+        const positionname =parentNode.querySelector(".position-name").innerText;
+        const salary =parentNode.querySelector(".salary").innerText;
+        const status =parentNode.querySelector(".status").innerText;
+        const discription=parentNode.querySelector(".discription").innerText;
 
-    const carddetails={
-        companyname,
-        positionname,
-        salary,
-        status,
-        discription
+        const carddetails={
+            companyname,
+            positionname,
+            salary,
+            status,
+            discription
+        }
+        const plantexist=interviewlist.find(item=>item.companyname==carddetails.companyname);
+        if (!plantexist){
+            interviewlist.push(carddetails);
+        }
+        renderinterviewlist();
     }
-    const plantexist=interviewlist.find(item=>item.companyname==carddetails.companyname);
-    if (!plantexist){
-        interviewlist.push(carddetails);
-    }
-    renderinterviewlist();
-
 })
 
 function renderinterviewlist(){
@@ -66,16 +67,22 @@ function renderinterviewlist(){
         div.innerHTML=`
 
         <div class="card">
-      <h1 class=" company-name text-black-600 font-bold">Mobile First Corp</h1>
-      <p class="position-name">React Native Developer</p>
+      <h1 class=" company-name text-black-600 font-bold">${interview.companyname}</h1>
+      <p class="position-name">${interview.positionname}</p>
       <br>
       <p class="salary">Remote• Full-time •$130,000 - $175,000</p>
       <br>
-      <h6 class=" status text-black-100 font-bold">Not Applied</h6>
+      <h6 class=" status text-black-100 font-bold">Interview</h6>
       <br>
-      <p class="discription">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+      <p class="discription">${interview.discription}   </p>
       <div class="flex gap-4 mt-4">
         <button class="p-2 w-24 text-green-400 border border-green-1 rounded-md">Interview</button>
         <button class="p-2 w-24 text-red-400 border border-red-1 rounded-md">Rejected</button>
       </div>
+        </div>
+        `;
+        filteredsection.appendChild(div);
+    }
+}
+
     
