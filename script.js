@@ -12,6 +12,7 @@ const rejectedfilterbtn=document.getElementById("rejected-filter-btn");
 const allcards=document.getElementById("all-cards");
 
 const maincontainer=document.querySelector("main");
+const filteredsection=document.getElementById("filtered-section");
 
 function calculatecount(){
     total.innerText=allcards.children.length;
@@ -49,5 +50,32 @@ maincontainer.addEventListener('click', function (event) {
         status,
         discription
     }
+    const plantexist=interviewlist.find(item=>item.companyname==carddetails.companyname);
+    if (!plantexist){
+        interviewlist.push(carddetails);
+    }
+    renderinterviewlist();
 
 })
+
+function renderinterviewlist(){
+    filteredsection.innerHTML="";
+    for(let interview of interviewlist){
+        let div=document.createElement("div");
+        div.className="card";
+        div.innerHTML=`
+
+        <div class="card">
+      <h1 class=" company-name text-black-600 font-bold">Mobile First Corp</h1>
+      <p class="position-name">React Native Developer</p>
+      <br>
+      <p class="salary">Remote• Full-time •$130,000 - $175,000</p>
+      <br>
+      <h6 class=" status text-black-100 font-bold">Not Applied</h6>
+      <br>
+      <p class="discription">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+      <div class="flex gap-4 mt-4">
+        <button class="p-2 w-24 text-green-400 border border-green-1 rounded-md">Interview</button>
+        <button class="p-2 w-24 text-red-400 border border-red-1 rounded-md">Rejected</button>
+      </div>
+    
