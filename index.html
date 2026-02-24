@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- icon link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -40,16 +41,15 @@
 </header>
 <main class="w-[80%] px-4 ">
    <div>
-    <button class="btn btn-primary">All</button>
-    <button class="btn ">Interview</button>
-    <button class="btn ">Rejected</button>
+    <button onclick="Togglestyle('all-filter-btn')" id="all-filter-btn" class="btn btn-primary">All</button>
+    <button onclick="Togglestyle('interview-filter-btn')" id="interview-filter-btn" class="btn ">Interview</button>
+    <button onclick="Togglestyle('rejected-filter-btn')" id="rejected-filter-btn" class="btn ">Rejected</button>
    </div>
-</main>
-<!-- card -->
- 
- <div  id="card-container" class="mt-5 p-4 border border-gray-300 rounded-lg bg-white">
-    <div class="card ">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+  
+  <!-- ------ -->
+<section id="all-cards" class=" mt-5">
+<div class="card">
+      <h1 class="text-black-600 font-bold">Mobile First Corp</h1>
       <p>React Native Developer</p>
       <br>
       <p>Remote• Full-time •$130,000 - $175,000</p>
@@ -63,8 +63,9 @@
       </div>
       <br>
       <br>
-    <div class="card ">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+    
+    <div class="card">
+      <h1 class="text-black-600 font-bold">WebFlow Agency</h1>
       <p>Web Designer & Developer</p>
       <br>
       <p>Los Angeles, CA•Part-time•$80,000 - $120,000</p>
@@ -78,8 +79,8 @@
       </div>
       <br>
       <br>
-    <div class="card ">
-     <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+    <div class="card">
+      <h1 class="text-black-600 font-bold">DataViz Solutions</h1>
       <p>Data Visualization Specialist</p>
       <br>
       <p>Boston, MA • Full-time• $125,000 - $165,000</p>
@@ -93,8 +94,8 @@
       </div>
       <br>
       <br>
-    <div class="card ">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+    <div class="card">
+      <h1 class="text-black-600 font-bold">CloudFirst nc</h1>
       <p>Backend Developer</p>
       <br>
       <p>Seattle, WA•Full-time•$140,000 - $190,000</p>
@@ -108,8 +109,8 @@
       </div>
       <br>
       <br>
-    <div class="card">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+    <div class="card ">
+      <h1 class="text-black-600 font-bold">Innovation Labs</h1>
       <p>UI/UX Engineer</p>
       <br>
       <p> TX•Full-time•$110,000 - $150,000</p>
@@ -123,8 +124,8 @@
       </div>
       <br>
       <br>
-    <div class="card ">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+    <div class="card">
+      <h1 class="text-black-600 font-bold">MegaCorp Solutions</h1>
       <p>JavaScript Developer</p>
       <br>
       <p>New York, NY• Full-time •$130,000 - $170,000</p>
@@ -139,8 +140,8 @@
       <br>
       <br>
       <!-- card--- -->
-    <div class="card ">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+    <div class="card">
+      <h1 class="text-black-600 font-bold">StartupXYZ</h1>
       <p>Full Stack Engineer</p>
       <br>
       <p>Remote• Full-time •$120,000 - $160,000</p>
@@ -156,7 +157,7 @@
       <br>
       <!-- card--- -->
     <div class="card">
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
+      <h1 class="text-black-600 font-bold">TechCorp Industries</h1>
       <p>Senior Frontend Developer</p>
       <br>
       <p>San Francisco, CA• Full-time •$130,000 - $175,000</p>
@@ -169,42 +170,12 @@
         <button class="p-2 w-24 text-red-400 border border-red-1 rounded-md">Rejected</button>
       </div>
     </div>
-   </div>
-<!-- <hr class="my-5"> -->
+</section>
+</main>
 
-  <!-- <section class="tab-section ">
-    <h1 class="text-black-600">Available Jobs</h1>
-    <br>
-   <div class="tabs tabs-boxed mb-6 bg-transparent">
-    <a class="tab tab-active bg-blue-600 text-white">All</a> 
-    <a class="tab">Interview</a> 
-    <a class="tab">Rejected</a>
-  </div>
-  </section> -->
-  
-  <!-- <section id="all-card">
-    <card-1 -->
-      <!-- <div class="card">
-      <div>
-      <div class="flex justify-between"><h1>Mobile First Corp<h1><button><i class="fa-regular fa-trash-can"></i></button></div>
-      <p>React Native Developer</p>
-      <br>
-      <p>Remote• Full-time •$130,000 - $175,000</p>
-      <br>
-      <h6 class="text-black-100 font-bold">Not Applied</h6>
-      <br>
-      <p>Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
-       <div>
-        <button class="btn btn-primary" >Interview</button>
-        <button class="btn btn-error">Rejected</button>
-      </div>
-      </div>
-       <div></div>
-     </div>
-
-
-   </section> 
-     -->
+<!-- card -->
+ 
+    
      
    <script src="script.js"></script>
 </body>
