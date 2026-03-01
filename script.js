@@ -1,88 +1,113 @@
-let interviewlist=[]
-let rejectedlist=[]
-let total=document.getElementById("total-count");
-let interview=document.getElementById("interview-count");
-let rejected=document.getElementById("rejected-count");
+let currentTab = "all";
+const tabActive = ["bg-navy", "text-white", "border-navy", "border-b-2"];
+
+const tabInactive = ["bg-transparent", "text-slate-700", "border-transparent", "border-state-200" ];
+
+const allContainer = document.getElementById("all-container");
+const interviewContainer = document.getElementById("interview-container");
+const rejectContainer = document.getElementById("rejected-container");
+const emptyState = document.getElementById("empty-state");
 
 
-const allfilterbtn=document.getElementById("all-filter-btn");
-const interviewfilterbtn=document.getElementById("interview-filter-btn");
-const rejectedfilterbtn=document.getElementById("rejected-filter-btn");
 
-const allcards=document.getElementById("all-cards");
+function switchTab(tab) {
+    console.log(tab);
+    const tabs= ["all", "interview", "rejected"];
+    currentTab = tab;
 
-const maincontainer=document.querySelector("main");
-const filteredsection=document.getElementById("filtered-section");
-
-function calculatecount(){
-    total.innerText=allcards.children.length;
-    interview.innerText=interviewlist.length;
-    rejected.innerText=rejectedlist.length;
-}
-calculatecount();
-
-function Togglestyle(id){
-    allfilterbtn.classList.remove("btn-primary");
-    interviewfilterbtn.classList.remove("btn-primary");
-    rejectedfilterbtn.classList.remove("btn-primary");
-
-    allfilterbtn.classList.add("bg-gray-300");
-    interviewfilterbtn.classList.add("bg-gray-300");
-    rejectedfilterbtn.classList.add("bg-gray-300");
-    const selected=document.getElementById(id);
-    selected.classList.remove("bg-gray-300");
-    selected.classList.add("btn-primary");
-    
-}
-
-maincontainer.addEventListener('click', function (event) {
-    if (event.target.classList.contains("interview-btn")) {
-        const parentNode = event.target.parentNode.parentNode;
-        const companyname =parentNode.querySelector(".company-name").innerText;
-        const positionname =parentNode.querySelector(".position-name").innerText;
-        const salary =parentNode.querySelector(".salary").innerText;
-        const status =parentNode.querySelector(".status").innerText;
-        const discription=parentNode.querySelector(".discription").innerText;
-
-        const carddetails={
-            companyname,
-            positionname,
-            salary,
-            status,
-            discription
-        }
-        const plantexist=interviewlist.find(item=>item.companyname==carddetails.companyname);
-        if (!plantexist){
-            interviewlist.push(carddetails);
-        }
-        renderinterviewlist();
+for (const t of tabs){
+    const tabName = document.getElementById("tab-" + t);
+    console.log(tabName);
+    if (t === tab) {
+        
+        tabName.classList.remove(...tabInactive);
+        tabName.classList.add(...tabActive);
     }
+    else {
+        tabName.classList.remove(...tabActive);
+        tabName.classList.add(...tabInactive);
+    }
+  }
+
+ 
+  
+  if (tab === "all") {
+    allContainer.classList.remove("hidden");
+    interviewContainer.classList.add("hidden");
+    if (allContainer.children.length <1) {
+        emptyState.classList.remove("hidden");
+    }
+    
+    rejectContainer.classList.add("hidden");
+  }
+    else if (tab === "interview") {
+    allContainer.classList.add("hidden");
+    if (interviewContainer.children.length <1) {
+        emptyState.classList.remove("hidden");
+    }
+    
+    
+    interviewContainer.classList.remove("hidden");
+    rejectContainer.classList.add("hidden");
+  }
+    else if (tab === "rejected") {
+    allContainer.classList.add("hidden");
+    if (rejectContainer.children.length <1) {
+        emptyState.classList.remove("hidden");
+    }
+    interviewContainer.classList.add("hidden");
+    rejectContainer.classList.remove("hidden");
+      
+  }
+  updateStats();
+}
+
+const totalstat = document.getElementById("stat-total");
+const interviewstat = document.getElementById("stat-interview");
+const rejectedstat = document.getElementById("stat-rejected");
+const available = document.getElementById("available");
+
+totalstat.innerText = allContainer.children.length;
+switchTab(currentTab)
+
+document.getElementById("jobs-container").addEventListener("click",function(event){
+    const clickedElement = event.target;
+    const card = clickedElement.closest(".card");
+    const status = card.querySelector(".status");
+   
+    if(clickedElement.classList.contains("interview")){
+        // console.log("Interview  clicked");
+        interviewContainer.appendChild(card);
+        status.innerText = "Interview";
+        updateStats();
+    }
+    if(clickedElement.classList.contains("rejected")){
+        // console.log("Rejected clicked");
+        rejectContainer.appendChild(card);
+        status.innerText = "Rejected";
+        updateStats();
+    }
+    if(clickedElement.classList.contains("delete")){
+        // console.log("Delete clicked");
+        card.remove();
+    }
+        
 })
 
-function renderinterviewlist(){
-    filteredsection.innerHTML="";
-    for(let interview of interviewlist){
-        let div=document.createElement("div");
-        div.className="card";
-        div.innerHTML=`
+function updateStats() {
+    // totalstat.innerText = allContainer.children.length 
+    // interviewstat.innerText = interviewContainer.children.length;
+    // rejectedstat.innerText = rejectContainer.children.length;
 
-        <div class="card">
-      <h1 class=" company-name text-black-600 font-bold">${interview.companyname}</h1>
-      <p class="position-name">${interview.positionname}</p>
-      <br>
-      <p class="salary">Remote• Full-time •$130,000 - $175,000</p>
-      <br>
-      <h6 class=" status text-black-100 font-bold">Interview</h6>
-      <br>
-      <p class="discription">${interview.discription}   </p>
-      <div class="flex gap-4 mt-4">
-        <button class="p-2 w-24 text-green-400 border border-green-1 rounded-md">Interview</button>
-        <button class="p-2 w-24 text-red-400 border border-red-1 rounded-md">Rejected</button>
-      </div>
-        </div>
-        `;
-        filteredsection.appendChild(div);
+    const count = {
+        all: allContainer.children.length,
+        interview: interviewContainer.children.length,
+        rejected: rejectContainer.children.length
     }
-}
-
+    totalstat.innerText = count["all"];
+    interviewstat.innerText = count["interview"];
+    rejectedstat.innerText = count["rejected"];
+    available.innerText = count[currentTab];
     
+}
+updateStats();
